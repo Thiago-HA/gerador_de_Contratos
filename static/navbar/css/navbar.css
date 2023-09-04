@@ -1,0 +1,37 @@
+body{
+    background-color:  #eeeeee;
+}
+
+#logo-navbar{
+    width: 5rem;
+}
+
+.navbar{
+    background-color: #0F95F5;
+    box-shadow: 0px 10px 16px -2px rgba(208, 208, 208, 0.29);
+}
+
+#navbarNavDropdown{
+    justify-content: end;
+}
+
+.nav-item{
+    border-right: #02B5A0 solid;
+}
+.ultimo-link{
+    border-right: none;
+}
+
+#navbarNavDropdown {
+    justify-content: space-between;
+    color: #cff3ff;
+}
+.usuario strong {
+    padding-left: .5rem;
+}
+
+@media (max-width: 992px){
+    .nav-item{
+        border-right: none;
+    }
+}
