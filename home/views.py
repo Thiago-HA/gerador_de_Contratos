@@ -16,6 +16,7 @@ def home(request):
         }
 
         return render(request, 'home.html', context)
+        return render(request, '_modelo_contrato.html', context)
     else:
         
         return redirect('auth/login/')

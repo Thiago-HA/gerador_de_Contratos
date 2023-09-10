@@ -1,5 +1,5 @@
 body{
-    background-color:  #eeeeee;
+    background-color:  #020018;
 }
 
 #logo-navbar{
@@ -7,16 +7,19 @@ body{
 }
 
 .navbar{
-    background-color: #0F95F5;
-    box-shadow: 0px 10px 16px -2px rgba(208, 208, 208, 0.29);
+    background-color: #013458;
+    box-shadow: 0px 10px 16px -2px rgba(226, 218, 218, 0.29);
 }
 
 #navbarNavDropdown{
     justify-content: end;
 }
 
-.nav-item{
+/* .nav-item{
     border-right: #02B5A0 solid;
+} */
+.nav-link{
+    color: #00ffff !important;
 }
 .ultimo-link{
     border-right: none;
@@ -25,6 +28,20 @@ body{
 #navbarNavDropdown {
     justify-content: space-between;
     color: #cff3ff;
+}
+
+.dropdown-menu{
+    background-color: #013458 !important;
+}
+.dropdown-item{
+    color: #00ffff !important;
+}
+.dropdown-item:hover{
+    background-color: #020018 !important;
+}
+
+.sair{
+    color: #00ffff!important;
 }
 .usuario strong {
     padding-left: .5rem;
