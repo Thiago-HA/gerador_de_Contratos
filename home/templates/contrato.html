@@ -1,0 +1,222 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block css %}
+{% endblock css %}
+
+{% block titulo %}Contrato {{contrato.id}}{% endblock titulo %}
+
+{% block navbar %} {% include '_navbar.html' %}{% endblock navbar %}
+
+{% block conteudo %}
+
+
+<div class="d-flex justify-content-center align-items-center" id="container" style="flex-direction: column;">
+    <div class="bg-white" style="width: 95%; padding:20px; margin-bottom: 2rem;">
+        <form method="POST" action="">{% csrf_token %}
+            <div class="mb-3">
+              <label class="form-label"><strong>Descrição do contrato</strong></label>
+              <input type="text" class="form-control" value="{{contrato.descricao}}" name="descricao" required  >
+            </div>
+    
+            <div class="w-100 d-flex text-center justify-content-center mb-4">
+              <h4 class="">Dados do contratante:</h4>
+            </div>
+    
+            <div class="mb-3">
+              <label class="form-label"><strong>Nome Completo</strong></label>
+              <input type="text" class="form-control" value="{{contrato.nome_contratante}}" name="nome" required  >
+            </div>
+            <div class="mb-3">
+              <label  class="form-label"><strong>CPF</strong></label>
+              <input type="text" class="form-control" value="{{contrato.cpf_contratante}}" name="cpf"  required>
+            </div>
+            <div class="mb-3">
+    
+            <div class="row space-between">
+                <div class="mb-3 col" >
+                  <label  class="form-label"><strong>Rua / logradouro</strong></label>
+                  <input type="text" class="form-control" value="{{contrato.rua_contratante}}" name="rua" required>
+                </div>
+                <div class="mb-3 col">
+                  <label  class="form-label"><strong>N° da rua</strong></label>
+                  <input type="text" class="form-control" value="{{contrato.numero_contratante}}" name="numero" required>
+                </div>
+            </div>
+            <div class="row space-between">
+                <div class="mb-3 col" >
+                    <label  class="form-label"><strong>Cidade</strong></label>
+                    <input type="text" class="form-control" value="{{contrato.cidade_contratante}}" name="cidade" required>
+                </div>
+                <div class="mb-3 col">
+                    <label  class="form-label"><strong>Estado</strong></label>
+                    <select class="form-select" name="estado">
+                      <option value="{{contrato.estado_contratante}}">{{contrato.estado_contratante}}</option>
+                      <option value="SC">Santa Catarina</option>
+                      <option value="AC">Acre</option>
+                      <option value="AL">Alagoas</option>
+                      <option value="AP">Amapá</option>
+                      <option value="AM">Amazonas</option>
+                      <option value="BA">Bahia</option>
+                      <option value="CE">Ceará</option>
+                      <option value="DF">Distrito Federal</option>
+                      <option value="ES">Espírito Santo</option>
+                      <option value="GO">Goiás</option>
+                      <option value="MA">Maranhão</option>
+                      <option value="MT">Mato Grosso</option>
+                      <option value="MS">Mato Grosso do Sul</option>
+                      <option value="MG">Minas Gerais</option>
+                      <option value="PA">Pará</option>
+                      <option value="PB">Paraíba</option>
+                      <option value="PR">Paraná</option>
+                      <option value="PE">Pernambuco</option>
+                      <option value="PI">Piauí</option>
+                      <option value="RJ">Rio de Janeiro</option>
+                      <option value="RN">Rio Grande do Norte</option>
+                      <option value="RS">Rio Grande do Sul</option>
+                      <option value="RO">Rondônia</option>
+                      <option value="RR">Roraima</option>
+                      <option value="SP">São Paulo</option>
+                      <option value="SE">Sergipe</option>
+                      <option value="TO">Tocantins</option>
+                  </select>
+                </div>
+            </div>
+            <br>
+            <div class="w-100 d-flex text-center justify-content-center mb-4">
+              <h4 class="">Dados do Evento:</h4>
+            </div>
+    
+            <div class="row space-between">
+              <div class="mb-3 col">
+                <label  class="form-label"><strong>Salão</strong></label>
+                <select class="form-select" name="salao">
+                  <option value="{{contrato.salao}}">{{contrato.salao}}</option>
+                  <option value="VIP">Salão VIP</option>
+                  <option value="Rústico">Salão Rústico</option>
+                  <option value="Nobre">Salão Nobre</option>
+                </select>
+              </div>
+              <div class="mb-3 col">
+                <label  class="form-label" style="display:flex; justify-content: space-between;"><strong>Tipo do evento</strong><a onclick="outro()" style="color: #04a3ff;">Editar</a></label>
+                <select class="form-select" id="festa" name="festa">
+                  <option value="{{contrato.evento}}">{{contrato.evento}}</option>
+                  <option value="Casamento">Casamento</option>
+                  <option value="Festa de 15 anos">Festa de 15 anos</option>
+                  <option value="Festa de Aniversário">Festa de Aniversário</option>
+                  <option value="Festa">Festa</option>
+                </select>
+                <input style="display: none;" type="text" class="form-control" value="" id="outra_festa" name="outra_festa"></input>
+              </div>
+            </div>
+    
+            <div class="row space-between">
+              <div class="mb-3 col">
+                <label  class="form-label"><strong>Quantidade de convidados</strong></label>
+                <input type="number" class="form-control" value="{{contrato.qtd_convidados}}" name="qtd_convidados" required>
+              </div>
+              <div class="mb-3 col">
+                <label  class="form-label"><strong>Quantidade de garçons</strong></label>
+                <input type="number" class="form-control" value="{{contrato.qtd_garcons}}" name="qtd_garcons" required>
+              </div>
+              <div class="mb-3 col">
+                <label  class="form-label"><strong>Data do Evento</strong></label>
+                <input type="date" class="form-control" value="{{contrato.data_evento|date:'Y-m-d'}}" name="data_evento" required>
+              </div>
+            </div>
+    
+            <br>
+            <div class="w-100 d-flex text-center justify-content-center mb-4">
+              <h4 class="">Valores:</h4>
+            </div>
+    
+            <div class="row space-between">
+              <div class="mb-3 col">
+                <label  class="form-label"><strong>Valor do aluguel</strong></label>
+                <input type="number" step="0.01" placeholder="R$" class="form-control" value="{{contrato.valor}}" name="valor_aluguel" required>
+              </div>
+              <div class="mb-3 col">
+                <label  class="form-label"><strong>Valor do Buffet</strong></label>
+                <input type="number" step="0.01" placeholder="R$" class="form-control" value="{{contrato.valor_buffet}}" name="valor_buffet" required>
+              </div>
+              <div class="mb-3 col">
+                <label  class="form-label"><strong>Data a pagar</strong></label>
+                <input type="date" class="form-control" value="{{contrato.data_pagar|date:'Y-m-d'}}" name="data_pagar" required>
+              </div>
+            </div>
+            <hr>
+    
+            <div class="d-flex w-100" style="justify-content: space-around; align-items: center; gap: 5px;">
+                <button type="button" class="btn btn-danger" style="width:100%">Deletar</button>
+                <a onclick="imprimir()" class="btn btn-primary" style="width:100%">Imprimir</a>
+                <a onclick="baixar(contrato_print)" class="btn btn-secondary" style="width:100%">Download</a>
+                <button type="submit" class="btn btn-success" style="width:100%">Salvar</button>
+            </div>
+          </form>
+    </div>
+</div>
+</div>
+
+
+
+<div id="contrato_print">
+    {% include "_modelo_contrato.html" %}
+</div>
+
+
+
+
+
+
+<script type="text/javascript">
+
+    function outro(){
+      input = document.getElementById("outra_festa")
+      select = document.getElementById("festa")
+  
+      if (input.style.display == "none"){
+        input.style.display = "flex"
+        select.style.display = "none"
+      }else{
+        select.style.display = "flex"
+        input.style.display = "none"
+        input.value = ""
+      }
+    }
+    
+    {% comment %} Função para botão de imprimir {% endcomment %}
+    function imprimir() {
+        window.print();
+    }
+    
+    {% comment %} Função para botão de download {% endcomment %}
+    function baixar(element_impressao) {
+
+}
+
+
+
+  </script>
+
+
+<style>
+    @media print {
+        t{
+            color: rgb(0, 0, 0);
+        }
+        nav{
+          display: none!important;
+        }
+        #container{
+          display: none!important;
+        }
+        #contrato_print{
+          display: flex!important;
+        }
+    
+    }
+</style>
+
+
+{% endblock conteudo %}

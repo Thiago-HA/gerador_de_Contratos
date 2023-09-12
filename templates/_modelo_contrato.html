@@ -1,5 +1,5 @@
 
-<div class="page">
+<div class="page" id="contrato" style="background-color:#ffffff;">
     <div class="container">
         <div class="container-principal">
             <div style="page-break-before:always; page-break-after:always"><div><p style="text-align: center; font-size: x-large; margin-bottom: 40px;"><b>CONTRATO DE PRESTA&#199;&#195;O DE SERVI&#199;O DE <i>BUFFET </i>COM<br/>LOCA&#199;&#195;O DE ESPA&#199;O PARA EVENTO<br/></b></p>
@@ -11,8 +11,8 @@
                     privado, inscrita no CNPJ/MF sob n°. 12.794.500/0001-21, por seu representante legal sr. Airton
                     de Sousa Albino, com sede à Lateral da BR-101, Pref. Santelmo Borba, n° 7950, bairro Nova
                     Guarita – CEP: 88960-000 no município de Sombrio/SC, doravante denominada simplesmente
-                    <b>CONTRATADA</b> e, de outro, <t>Adão Rodrigo Simas</t> inscrita no CPF nº <t>005.824.930-30</t>, residente e
-                    domiciliado na <t>Rua Libano José Gomes, número 885 no município de Criciúma /SC</t>, doravante
+                    <b>CONTRATADA</b> e, de outro, <t>{{contrato.nome_contratante}}</t> inscrita no CPF nº <t>{{contrato.cpf_contratante}}</t>, residente e
+                    domiciliado na <t>{{contrato.rua_contratante}}, {% if contrato.numero_contratante %}número {{contrato.numero_contratante}}{% endif %} no município de {{contrato.cidade_contratante}} /{{contrato.estado_contratante}}</t>, doravante
                     denominada simplesmente <b>CONTRATANTE</b>.
                 </p>
 
@@ -27,7 +27,7 @@
                 <p class="text-justify">
                     <b>Cláusula 1</b>. É objeto do presente contrato a Locação de Espaço para realização de evento e
                     prestação de serviços de Buffet pela <b>CONTRATADA</b> à <b>CONTRATANTE</b> a ser realizado no imóvel
-                    de propriedade da <b>CONTRATADA</b> no salão denominado <b><t>VIP</t></b>, no endereço Lateral da BR-101,
+                    de propriedade da <b>CONTRATADA</b> no salão denominado <b><t>{{contrato.salao}}</t></b>, no endereço Lateral da BR-101,
                     Pref. Santelmo Borba, n° 7950, bairro Nova Guarita – CEP: 88960-000 no município de
                     Sombrio/SC.
                     
@@ -37,8 +37,8 @@
 
                 <p class="text-justify">
                     <b>Cláusula 2</b>. O evento, para cuja os serviços de buffet e locação de espaço foram contratados,
-                    será um <t>Casamento</t> de responsabilidade do(a) <b>CONTRATANTE</b>, e contará com a presença de
-                    <b><t>100</t></b> pessoas/convidados na data de <t>21/09/2024</t>, às <u>19:00 horas</u>.
+                    será um(a) <t>{{contrato.evento}}</t> de responsabilidade do(a) <b>CONTRATANTE</b>, e contará com a presença de
+                    <b><t>{{contrato.qtd_convidados}}</t></b> pessoas/convidados na data de <t>{{contrato.data_evento|date:'d/m/Y'}}"</t>, às <u>19:00 horas</u>.
 
                 </p>
 
@@ -99,7 +99,7 @@
                 </p>
 
                 <p class="text-justify">
-                    <b>Cláusula 8.</b> A <b>CONTRATADA</b> fornecerá <t>3</t> garçons para a prestação dos serviços ora contratados.
+                    <b>Cláusula 8.</b> A <b>CONTRATADA</b> fornecerá <t>{{contrato.qtd_garcons}}</t> garçons para a prestação dos serviços ora contratados.
                 </p>
 
                 <p class="text-justify">
@@ -121,10 +121,10 @@
 
                 <p class="text-justify">
                     <b>Cláusula 11</b>. Os serviços contratados no presente instrumento serão remunerados pela
-                    quantidade total de R$ [ ___________ ], correspondente ao valor de R$ <t>7000,00</t> do aluguel do
-                    espaço (salão <t>rústico</t>) e o valor de R$ <t>55,00</t> (a combinar com o dia da data) pelo serviço de
+                    quantidade total de R$ [ ___________ ], correspondente ao valor de R$ <t>{{contrato.valor}}</t> do aluguel do
+                    espaço (salão <t>{{contrato.salao}}</t>) e o valor de R$ <t>{{contrato.valor_buffet}}</t> (a combinar com o dia da data) pelo serviço de
                     buffet para a quantidade de pessoas indicada na cláusula 2ª, e deve ser pago em [dinheiro, cheque, cartão,
-                    etc.] 50% do valor da festa uma semana antes do evento, e o restante até a data de <t>26/09/2024</t>.
+                    etc.] 50% do valor da festa uma semana antes do evento, e o restante até a data de <t>{{contrato.data_pagar|date:'d/m/Y'}}</t>.
                     <!-- data de terminar de pagar -->
 
                 </p>
@@ -164,7 +164,7 @@
 
                 <p class="text-justify">
                     Parágrafo primeiro. O(A) <b>CONTRATANTE</b> se obriga a restituir o espaço locado em perfeito estado
-                    de conservação no dia <t>26/09/2024</t>. Responsabilizando- se por qualquer dano que venha a causar
+                    de conservação no dia <t>{{contrato.data_pagar|date:'d/m/Y'}}</t>. Responsabilizando- se por qualquer dano que venha a causar
                     ao imóvel, ou aos bens que o guarnecem, devendo restituí-los nas mesmas condições em que os
                     recebeu.
                     <!-- data para devolução do salao limpo -->
@@ -234,11 +234,11 @@
 
                 <div class="parte-final">
                     <p class="text-justify">
-                        Sombrio/SC, <t>29 de julho de 2023</t>.
+                        Sombrio/SC, <t>{{contrato.data_contrato.day}} de {{mes}} de {{contrato.data_contrato.year}}</t>.
                         <!-- data do contrato -->
                     </p>
                     <div class="text-justify assinatura">
-                        <p style="margin: 5px;"><b><t>Adão Rodrigo Simas</t></b></p>
+                        <p style="margin: 5px;"><b><t>{{contrato.nome_contratante}}</t></b></p>
                         <p style="margin: 0;">CONTRATANTE</p>
                     </div>
                     <div class="text-justify assinatura">

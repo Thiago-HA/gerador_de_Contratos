@@ -21,6 +21,9 @@ body{
 .nav-link{
     color: #00ffff !important;
 }
+.nav-link:hover{
+    color: #d3ffff !important;
+}
 .ultimo-link{
     border-right: none;
 }
@@ -42,6 +45,9 @@ body{
 
 .sair{
     color: #00ffff!important;
+}
+.sair:hover{
+    color: #d3ffff!important;
 }
 .usuario strong {
     padding-left: .5rem;

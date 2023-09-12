@@ -20,5 +20,7 @@ from django.urls import include, path
 from home import views
 
 urlpatterns = [
-    path('', views.home, name='home')
+    path('', views.home, name='home'),
+    path('/abrir_contrato/<int:id>', views.contrato, name='contrato'),
+    path('/cadastro_contrato', views.cadastro_contrato, name='cadastro_contrato'),
 ]
