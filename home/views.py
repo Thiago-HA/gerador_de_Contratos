@@ -15,6 +15,11 @@ def home(request):
         descricao_busca = request.POST.get('descricao_busca')
         data_busca = request.POST.get('data_busca')
 
+        if descricao_busca == None:
+            descricao_busca = ""
+        if data_busca == None:
+            data_busca = ""
+
         today = datetime.date.today()
 
         if n_pedido:
