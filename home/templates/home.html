@@ -84,7 +84,7 @@
                               <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
                             </svg></button>
                         </div>
-                            <form method="POST" action="#"> {% csrf_token %}    
+                            <form method="POST" action="{% url "home" %}"> {% csrf_token %}    
                                 <div class="base-filtro">
                                   <div class="container-filtro">
 
@@ -92,19 +92,19 @@
                                        <div class="col">
                                          <div class="form-outline mb-1">
                                              <label class="form-label" >N° Contrato:</label>
-                                             <input value="{{oi}}" type="number" name="n_pedido" class="form-control"  />
+                                             <input  type="number" name="n_pedido" value="{{n_pedido}}" class="form-control"  />
                                          </div>
                                        </div>
                                      <div class="col">
                                        <div class="form-outline mb-1">
                                            <label class="form-label" >Descrição do Contrato:</label>
-                                           <input value="{{oi}}" type="text" name="descricao_busca" class="form-control"  />
+                                           <input  type="text" name="descricao_busca" value="{{descricao_busca}}" class="form-control"  />
                                        </div>
                                      </div>
                                      <div class="col">
                                        <div class="form-outline">
                                          <label class="form-label" >Data do contrato</label>
-                                           <input value="{{oi}}" type="date" name="data_busca" class="form-control" />
+                                           <input  type="date" name="data_busca" value="{{data_busca}}" class="form-control" />
                                        </div>
                                        <br>
                                      </div>

@@ -11,9 +11,16 @@ def home(request):
         status = request.GET.get('status')
         apelido = str(usuario.apelido).upper()        
 
-        contratos = Contrato.objects.all()
+        n_pedido = request.POST.get('n_pedido')
+        descricao_busca = request.POST.get('descricao_busca')
+        data_busca = request.POST.get('data_busca')
 
         today = datetime.date.today()
+
+        if n_pedido:
+            contratos = Contrato.objects.filter(id = n_pedido, descricao__contains = descricao_busca, data_contrato__contains = data_busca).order_by('-id')
+        else:
+            contratos = Contrato.objects.filter(descricao__contains = descricao_busca, data_contrato__contains = data_busca).order_by('-id')
 
         context = {
             'status':status,
@@ -21,6 +28,9 @@ def home(request):
             'apelido' : apelido,
             'contratos' : contratos,
             'today' : today,
+            'n_pedido' : n_pedido,
+            'descricao_busca' : descricao_busca,
+            'data_busca' : data_busca,
         }
 
         return render(request, 'home.html', context)
