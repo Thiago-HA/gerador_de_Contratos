@@ -1,3 +1,4 @@
+{% load humanize %}
 
 <div class="page" id="contrato" style="background-color:#ffffff;">
     <div class="container">
@@ -121,8 +122,8 @@
 
                 <p class="text-justify">
                     <b>Cláusula 11</b>. Os serviços contratados no presente instrumento serão remunerados pela
-                    quantidade total de R$ [ ___________ ], correspondente ao valor de R$ <t>{{contrato.valor}}</t> do aluguel do
-                    espaço (salão <t>{{contrato.salao}}</t>) e o valor de R$ <t>{{contrato.valor_buffet}}</t> (a combinar com o dia da data) pelo serviço de
+                    quantidade total de R$ [ ___________ ], correspondente ao valor de R$ <t>{{contrato.valor|intcomma}}</t> do aluguel do
+                    espaço (salão <t>{{contrato.salao}}</t>) e o valor de R$ <t>{{contrato.valor_buffet|intcomma}}</t> (a combinar com o dia da data) pelo serviço de
                     buffet para a quantidade de pessoas indicada na cláusula 2ª, e deve ser pago em [dinheiro, cheque, cartão,
                     etc.] 50% do valor da festa uma semana antes do evento, e o restante até a data de <t>{{contrato.data_pagar|date:'d/m/Y'}}</t>.
                     <!-- data de terminar de pagar -->

@@ -21,34 +21,11 @@
           <li class="nav-item">
             <a class="nav-link Selecionado" href="{% url 'home' %}"><strong>Contratos</strong></a>
           </li>
+
           <li class="nav-item">
-            <a class="nav-link Selecionado" href=""><strong>Agenda</strong></a>
+            <a type="button" class="nav-link Selecionado" data-bs-toggle="modal" data-bs-target="#ModalCreateContrato"><strong>Novo contrato</strong></a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href=""><strong>Personalização</strong></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href=""><strong>Caixa</strong></a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <strong>Administrador</strong>
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" href="">Relatórios de vendas</a></li>
-              <li><a class="dropdown-item" href="">Comissão</a></li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <strong>Pedido</strong>
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" href="">Pedidos</a></li>
-              <li><a class="dropdown-item" href="">Adicionar Pedido</a></li>
-               <li><a class="dropdown-item" href="">Pedidos excluidos</a></li>
-            </ul>
-          </li>
+          
           <li class="nav-item ultimo-link ">
             <a class="btn" href="{% url 'sair' %}" id="btn-sair"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box-arrow-in-right sair" viewBox="0 0 16 16">
               <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>
@@ -61,3 +38,159 @@
     </div>
   </nav>
   
+  
+        <!-- Modal CREATE CONTRATO -->
+<div class="modal fade" id="ModalCreateContrato" tabindex="-1" aria-labelledby="ModalCreateContratolLabel" aria-hidden="true" >
+          <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="ModalCreateContratoLabel">Cadastro de Contrato </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{% url 'cadastro_contrato' %}">{% csrf_token %}
+                    <div class="row space-between">
+                      <div class="mb-3 col">
+                        <label class="form-label"><strong>Descrição do contrato</strong></label>
+                        <input type="text" class="form-control" name="descricao" required  >
+                      </div>
+                      <div class="mb-3 col">
+                        <label  class="form-label">Data do Contrato</label>
+                        <input type="date" class="form-control" value="{{today|date:'Y-m-d'}}" name="data_contrato" >
+                      </div>
+                    </div>
+
+                    <div class="w-100 d-flex text-center justify-content-center mb-4">
+                      <h4 class="">Dados do contratante:</h4>
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label"><strong>Nome Completo</strong></label>
+                      <input type="text" class="form-control" name="nome" required  >
+                    </div>
+                    <div class="mb-3">
+                      <label  class="form-label"><strong>CPF</strong></label>
+                      <input type="text" class="form-control" name="cpf"  required>
+                    </div>
+                    <div class="mb-3">
+
+                    <div class="row space-between">
+                        <div class="mb-3 col" >
+                          <label  class="form-label"><strong>Rua / logradouro</strong></label>
+                          <input type="text" class="form-control" name="rua" required>
+                        </div>
+                        <div class="mb-3 col">
+                          <label  class="form-label">N° da rua</label>
+                          <input type="text" class="form-control" name="numero">
+                        </div>
+                    </div>
+                    <div class="row space-between">
+                        <div class="mb-3 col" >
+                            <label  class="form-label"><strong>Cidade</strong></label>
+                            <input type="text" class="form-control" name="cidade" required>
+                        </div>
+                        <div class="mb-3 col">
+                            <label  class="form-label"><strong>Estado</strong></label>
+                            <select class="form-select" name="estado">
+                              <option value="SC">Santa Catarina</option>
+                              <option value="AC">Acre</option>
+                              <option value="AL">Alagoas</option>
+                              <option value="AP">Amapá</option>
+                              <option value="AM">Amazonas</option>
+                              <option value="BA">Bahia</option>
+                              <option value="CE">Ceará</option>
+                              <option value="DF">Distrito Federal</option>
+                              <option value="ES">Espírito Santo</option>
+                              <option value="GO">Goiás</option>
+                              <option value="MA">Maranhão</option>
+                              <option value="MT">Mato Grosso</option>
+                              <option value="MS">Mato Grosso do Sul</option>
+                              <option value="MG">Minas Gerais</option>
+                              <option value="PA">Pará</option>
+                              <option value="PB">Paraíba</option>
+                              <option value="PR">Paraná</option>
+                              <option value="PE">Pernambuco</option>
+                              <option value="PI">Piauí</option>
+                              <option value="RJ">Rio de Janeiro</option>
+                              <option value="RN">Rio Grande do Norte</option>
+                              <option value="RS">Rio Grande do Sul</option>
+                              <option value="RO">Rondônia</option>
+                              <option value="RR">Roraima</option>
+                              <option value="SP">São Paulo</option>
+                              <option value="SE">Sergipe</option>
+                              <option value="TO">Tocantins</option>
+                          </select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="w-100 d-flex text-center justify-content-center mb-4">
+                      <h4 class="">Dados do Evento:</h4>
+                    </div>
+
+                    <div class="row space-between">
+                      <div class="mb-3 col">
+                        <label  class="form-label"><strong>Salão</strong></label>
+                        <select class="form-select" name="salao">
+                          <option value="VIP">Salão VIP</option>
+                          <option value="Rústico">Salão Rústico</option>
+                          <option value="Nobre">Salão Nobre</option>
+                        </select>
+                      </div>
+                      <div class="mb-3 col">
+                        <label  class="form-label" style="display:flex; justify-content: space-between;"><strong>Tipo do evento</strong><a onclick="outro()" style="color: #04a3ff;">Editar</a></label>
+                        <select class="form-select" id="festa" name="festa">
+                          <option value="Casamento">Casamento</option>
+                          <option value="Festa de 15 anos">Festa de 15 anos</option>
+                          <option value="Festa de Aniversário">Festa de Aniversário</option>
+                          <option value="Festa">Festa</option>
+                        </select>
+                        <input style="display: none;" type="text" class="form-control" value="" id="outra_festa" name="outra_festa"></input>
+                      </div>
+                    </div>
+
+                    <div class="row space-between">
+                      <div class="mb-3 col">
+                        <label  class="form-label"><strong>Quantidade de convidados</strong></label>
+                        <input type="number" class="form-control" name="qtd_convidados" required>
+                      </div>
+                      <div class="mb-3 col">
+                        <label  class="form-label"><strong>Quantidade de garçons</strong></label>
+                        <input type="number" class="form-control" name="qtd_garcons" required>
+                      </div>
+                      <div class="mb-3 col">
+                        <label  class="form-label"><strong>Data do Evento</strong></label>
+                        <input type="date" class="form-control" name="data_evento" required>
+                      </div>
+                    </div>
+
+                    <br>
+                    <div class="w-100 d-flex text-center justify-content-center mb-4">
+                      <h4 class="">Valores:</h4>
+                    </div>
+
+                    <div class="row space-between">
+                      <div class="mb-3 col">
+                        <label  class="form-label"><strong>Valor do aluguel</strong></label>
+                        <input type="number" step="0.01" placeholder="R$" class="form-control" name="valor_aluguel" required>
+                      </div>
+                      <div class="mb-3 col">
+                        <label  class="form-label"><strong>Valor do Buffet</strong></label>
+                        <input type="number" step="0.01" placeholder="R$" class="form-control" name="valor_buffet" required>
+                      </div>
+                      <div class="mb-3 col">
+                        <label  class="form-label"><strong>Data a pagar</strong></label>
+                        <input type="date" class="form-control" name="data_pagar" required>
+                      </div>
+                    </div>
+                    <hr>
+                    
+                    <button type="submit" class="btn btn-primary" style="width:100%">Salvar</button>
+                  </form>
+            </div>
+            
+          </div>
+          </div>
+          </div>
+          </div>
+          
+          <!-- FIM MODAL  -->

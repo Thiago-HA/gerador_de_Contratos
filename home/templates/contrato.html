@@ -11,14 +11,58 @@
 
 {% block conteudo %}
 
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+  </symbol>
+  <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+  </symbol>
+  <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+  </symbol>
+</svg>
+
+{% if status == '0' %}
+      
+<div class="container-alert" id="notification">
+  <div class="alert alert-secondary d-flex align-items-center" role="alert" id="alert">
+      <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+      <div class="notificacao">
+        Ocorreu um Erro interno na tentativa de gravar no Banco de Dados :(
+        <a href="{% url 'contrato' contrato.id %}" class="btn-close" id="action-btn"></a>
+    </div>
+  </div>
+</div>
+  
+{% endif %}
+{% if status == '1' %}
+      
+  <div class="container-alert" id="notification">
+    <div class="alert alert-success d-flex align-items-center" role="alert" id="alert">
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#check-circle-fill"/></svg>
+        <div class="notificacao">
+          Contrato alterado com sucesso!
+          <a href="{% url 'contrato' contrato.id %}" class="btn-close" id="action-btn"></a>
+      </div>
+    </div>
+  </div>
+
+{% endif %}
 
 <div class="d-flex justify-content-center align-items-center" id="container" style="flex-direction: column;">
     <div class="bg-white" style="width: 95%; padding:20px; margin-bottom: 2rem;">
-        <form method="POST" action="">{% csrf_token %}
-            <div class="mb-3">
+        <form method="POST" action="{% url "editar_contrato" contrato.id %}">{% csrf_token %}
+          <div class="row space-between">
+            <div class="mb-3 col">
               <label class="form-label"><strong>Descrição do contrato</strong></label>
               <input type="text" class="form-control" value="{{contrato.descricao}}" name="descricao" required  >
             </div>
+            <div class="mb-3 col">
+              <label  class="form-label"><strong>Data do Contrato</strong></label>
+              <input type="date" class="form-control" value="{{contrato.data_contrato|date:'Y-m-d'}}" name="data_contrato" required>
+            </div>
+          </div>
     
             <div class="w-100 d-flex text-center justify-content-center mb-4">
               <h4 class="">Dados do contratante:</h4>
@@ -40,8 +84,8 @@
                   <input type="text" class="form-control" value="{{contrato.rua_contratante}}" name="rua" required>
                 </div>
                 <div class="mb-3 col">
-                  <label  class="form-label"><strong>N° da rua</strong></label>
-                  <input type="text" class="form-control" value="{{contrato.numero_contratante}}" name="numero" required>
+                  <label  class="form-label">N° da rua</label>
+                  <input type="text" class="form-control" value="{{contrato.numero_contratante}}" name="numero">
                 </div>
             </div>
             <div class="row space-between">
@@ -148,16 +192,37 @@
             <hr>
     
             <div class="d-flex w-100" style="justify-content: space-around; align-items: center; gap: 5px;">
-                <button type="button" class="btn btn-danger" style="width:100%">Deletar</button>
-                <a onclick="imprimir()" class="btn btn-primary" style="width:100%">Imprimir</a>
-                <a onclick="baixar(contrato_print)" class="btn btn-secondary" style="width:100%">Download</a>
-                <button type="submit" class="btn btn-success" style="width:100%">Salvar</button>
+                <button type="button" class="btn btn-danger d-flex justify-content-center align-items-center gap-2"  data-bs-toggle="modal" data-bs-target="#ModaldeleteContrato" style="width:100%">Deletar <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16"><path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/></svg></button>
+                <a onclick="imprimir()" class="btn btn-primary d-flex justify-content-center align-items-center gap-2" style="width:100%">Imprimir <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-printer-fill" viewBox="0 0 16 16"><path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2H5zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z"/><path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/></svg></a>
+                <a onclick="baixar(contrato_print)" class="btn btn-secondary d-flex justify-content-center align-items-center gap-2" style="width:100%">Download <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg></a>
+                <button type="submit" class="btn btn-success d-flex justify-content-center align-items-center gap-2" style="width:100%">Salvar <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-floppy2-fill" viewBox="0 0 16 16"><path d="M12 2h-2v3h2V2Z"/><path d="M1.5 0A1.5 1.5 0 0 0 0 1.5v13A1.5 1.5 0 0 0 1.5 16h13a1.5 1.5 0 0 0 1.5-1.5V2.914a1.5 1.5 0 0 0-.44-1.06L14.147.439A1.5 1.5 0 0 0 13.086 0H1.5ZM4 6a1 1 0 0 1-1-1V1h10v4a1 1 0 0 1-1 1H4ZM3 9h10a1 1 0 0 1 1 1v5H2v-5a1 1 0 0 1 1-1Z"/></svg></button>
             </div>
           </form>
     </div>
 </div>
 </div>
 
+
+        <!-- Modal DELETE CONTRATO -->
+        <div class="modal fade" id="ModaldeleteContrato" tabindex="-1" aria-labelledby="ModaldeleteContratolLabel" aria-hidden="true" >
+          <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="ModaldeleteContratoLabel">Deletar contrato {{contrato.id}} </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Deseja realmente deletar o contrato "<strong>{{contrato.descricao}}</strong>"
+            </div>
+
+            <div class="modal-footer">
+              <a href="{% url "deletar_contrato" contrato.id %}" class="btn btn-danger d-flex justify-content-center align-items-center gap-2" style="">Excluir <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16"><path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/></svg></a>
+            </div>
+          </div>
+          </div>
+          </div>
+          
+          <!-- FIM MODAL  -->
 
 
 <div id="contrato_print">
@@ -185,15 +250,24 @@
       }
     }
     
-    {% comment %} Função para botão de imprimir {% endcomment %}
+    //{% comment %} Função para botão de imprimir {% endcomment %}
     function imprimir() {
         window.print();
     }
     
-    {% comment %} Função para botão de download {% endcomment %}
+    //{% comment %} Função para botão de download {% endcomment %}
     function baixar(element_impressao) {
+      alert("Função indisponível no momento")
 
-}
+      // // Opções de configuração do PDF
+      // const pdf = {
+      //   filename: 'contrato.pdf',
+      //   jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      // }
+
+      // // Crie o PDF a partir do elemento HTML
+      // html2pdf().set(pdf).from(element_impressao).save()
+    }
 
 
 

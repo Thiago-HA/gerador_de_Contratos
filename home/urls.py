@@ -21,6 +21,8 @@ from home import views
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('/abrir_contrato/<int:id>', views.contrato, name='contrato'),
-    path('/cadastro_contrato', views.cadastro_contrato, name='cadastro_contrato'),
+    path('abrir_contrato/<int:id>', views.contrato, name='contrato'),
+    path('editar_contrato/<int:id>', views.editar_contrato, name='editar_contrato'),
+    path('deletar_contrato/<int:id>', views.deletar_contrato, name='deletar_contrato'),
+    path('cadastro_contrato', views.cadastro_contrato, name='cadastro_contrato'),
 ]

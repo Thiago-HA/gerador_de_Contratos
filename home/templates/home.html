@@ -24,6 +24,48 @@
     </symbol>
   </svg>
 
+  {% if status == '0' %}
+      
+  <div class="container-alert" id="notification">
+    <div class="alert alert-secondary d-flex align-items-center" role="alert" id="alert">
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+        <div class="notificacao">
+          Ocorreu um Erro interno na tentativa de gravar no Banco de Dados :(
+          <a href="{% url 'home' %}" class="btn-close" id="action-btn"></a>
+      </div>
+    </div>
+  </div>
+    
+{% endif %}
+
+  {% if status == '1' %}
+      
+  <div class="container-alert" id="notification">
+    <div class="alert alert-success d-flex align-items-center" role="alert" id="alert">
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#check-circle-fill"/></svg>
+        <div class="notificacao">
+          Contrato Cadastrado com sucesso!
+          <a href="{% url 'home' %}" class="btn-close" id="action-btn"></a>
+      </div>
+    </div>
+  </div>
+    
+{% endif %}
+
+{% if status == '2' %}
+    
+  <div class="container-alert" id="notification">
+    <div class="alert alert-warning d-flex align-items-center" role="alert" id="alert">
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#check-circle-fill"/></svg>
+        <div class="notificacao">
+          Contrato foi deletado com sucesso!
+          <a href="{% url 'home' %}" class="btn-close" id="action-btn"></a>
+      </div>
+    </div>
+  </div>
+  
+{% endif %}
+
         
     <!--MDB Tables-->
     <div class="container mt-4">
@@ -37,7 +79,11 @@
                     <!-- Grid column -->
                     <div class="col-md-12">
                         <h2 class="pt-3 pb-4 text-center font-bold font-up deep-purple-text">Contratos</h2>
-                            <button type="button" class=" btn btn-success w-100"  data-bs-toggle="modal" data-bs-target="#ModalCreateContrato">Novo Contrato</button>
+                            <div style="justify-content: space-between; align-items: center; display: flex;"><div></div><button type="button" class=" btn btn-success d-flex justify-content-center align-items-center gap-2"  data-bs-toggle="modal" data-bs-target="#ModalCreateContrato">Novo Contrato
+                              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                            </svg></button>
+                        </div>
                             <form method="POST" action="#"> {% csrf_token %}    
                                 <div class="base-filtro">
                                   <div class="container-filtro">
@@ -110,151 +156,8 @@
         </div>
 
         <!-- Modal CREATE CONTRATO -->
-        <div class="modal fade" id="ModalCreateContrato" tabindex="-1" aria-labelledby="ModalCreateContratolLabel" aria-hidden="true" >
-          <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="ModalCreateContratoLabel">Cadastro de Contrato </h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form method="POST" action="{% url 'cadastro_contrato' %}">{% csrf_token %}
-                    <div class="mb-3">
-                      <label class="form-label"><strong>Descrição do contrato</strong></label>
-                      <input type="text" class="form-control" name="descricao" required  >
-                    </div>
 
-                    <div class="w-100 d-flex text-center justify-content-center mb-4">
-                      <h4 class="">Dados do contratante:</h4>
-                    </div>
-
-                    <div class="mb-3">
-                      <label class="form-label"><strong>Nome Completo</strong></label>
-                      <input type="text" class="form-control" name="nome" required  >
-                    </div>
-                    <div class="mb-3">
-                      <label  class="form-label"><strong>CPF</strong></label>
-                      <input type="text" class="form-control" name="cpf"  required>
-                    </div>
-                    <div class="mb-3">
-
-                    <div class="row space-between">
-                        <div class="mb-3 col" >
-                          <label  class="form-label"><strong>Rua / logradouro</strong></label>
-                          <input type="text" class="form-control" name="rua" required>
-                        </div>
-                        <div class="mb-3 col">
-                          <label  class="form-label"><strong>N° da rua</strong></label>
-                          <input type="text" class="form-control" name="numero">
-                        </div>
-                    </div>
-                    <div class="row space-between">
-                        <div class="mb-3 col" >
-                            <label  class="form-label"><strong>Cidade</strong></label>
-                            <input type="text" class="form-control" name="cidade" required>
-                        </div>
-                        <div class="mb-3 col">
-                            <label  class="form-label"><strong>Estado</strong></label>
-                            <select class="form-select" name="estado">
-                              <option value="SC">Santa Catarina</option>
-                              <option value="AC">Acre</option>
-                              <option value="AL">Alagoas</option>
-                              <option value="AP">Amapá</option>
-                              <option value="AM">Amazonas</option>
-                              <option value="BA">Bahia</option>
-                              <option value="CE">Ceará</option>
-                              <option value="DF">Distrito Federal</option>
-                              <option value="ES">Espírito Santo</option>
-                              <option value="GO">Goiás</option>
-                              <option value="MA">Maranhão</option>
-                              <option value="MT">Mato Grosso</option>
-                              <option value="MS">Mato Grosso do Sul</option>
-                              <option value="MG">Minas Gerais</option>
-                              <option value="PA">Pará</option>
-                              <option value="PB">Paraíba</option>
-                              <option value="PR">Paraná</option>
-                              <option value="PE">Pernambuco</option>
-                              <option value="PI">Piauí</option>
-                              <option value="RJ">Rio de Janeiro</option>
-                              <option value="RN">Rio Grande do Norte</option>
-                              <option value="RS">Rio Grande do Sul</option>
-                              <option value="RO">Rondônia</option>
-                              <option value="RR">Roraima</option>
-                              <option value="SP">São Paulo</option>
-                              <option value="SE">Sergipe</option>
-                              <option value="TO">Tocantins</option>
-                          </select>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="w-100 d-flex text-center justify-content-center mb-4">
-                      <h4 class="">Dados do Evento:</h4>
-                    </div>
-
-                    <div class="row space-between">
-                      <div class="mb-3 col">
-                        <label  class="form-label"><strong>Salão</strong></label>
-                        <select class="form-select" name="salao">
-                          <option value="VIP">Salão VIP</option>
-                          <option value="Rústico">Salão Rústico</option>
-                          <option value="Nobre">Salão Nobre</option>
-                        </select>
-                      </div>
-                      <div class="mb-3 col">
-                        <label  class="form-label" style="display:flex; justify-content: space-between;"><strong>Tipo do evento</strong><a onclick="outro()" style="color: #04a3ff;">Editar</a></label>
-                        <select class="form-select" id="festa" name="festa">
-                          <option value="Casamento">Casamento</option>
-                          <option value="Festa de 15 anos">Festa de 15 anos</option>
-                          <option value="Festa de Aniversário">Festa de Aniversário</option>
-                          <option value="Festa">Festa</option>
-                        </select>
-                        <input style="display: none;" type="text" class="form-control" value="" id="outra_festa" name="outra_festa"></input>
-                      </div>
-                    </div>
-
-                    <div class="row space-between">
-                      <div class="mb-3 col">
-                        <label  class="form-label"><strong>Quantidade de convidados</strong></label>
-                        <input type="number" class="form-control" name="qtd_convidados" required>
-                      </div>
-                      <div class="mb-3 col">
-                        <label  class="form-label"><strong>Quantidade de garçons</strong></label>
-                        <input type="number" class="form-control" name="qtd_garcons" required>
-                      </div>
-                      <div class="mb-3 col">
-                        <label  class="form-label"><strong>Data do Evento</strong></label>
-                        <input type="date" class="form-control" name="data_evento" required>
-                      </div>
-                    </div>
-
-                    <br>
-                    <div class="w-100 d-flex text-center justify-content-center mb-4">
-                      <h4 class="">Valores:</h4>
-                    </div>
-
-                    <div class="row space-between">
-                      <div class="mb-3 col">
-                        <label  class="form-label"><strong>Valor do aluguel</strong></label>
-                        <input type="number" step="0.01" placeholder="R$" class="form-control" name="valor_aluguel" required>
-                      </div>
-                      <div class="mb-3 col">
-                        <label  class="form-label"><strong>Valor do Buffet</strong></label>
-                        <input type="number" step="0.01" placeholder="R$" class="form-control" name="valor_buffet" required>
-                      </div>
-                      <div class="mb-3 col">
-                        <label  class="form-label"><strong>Data a pagar</strong></label>
-                        <input type="date" class="form-control" name="data_pagar" required>
-                      </div>
-                    </div>
-                    <hr>
-                    
-                    <button type="submit" class="btn btn-primary" style="width:100%">Salvar</button>
-                  </form>
-            </div>
-            
-          </div>
-          </div>
-          </div>
+        {% comment %} modal de contrato fica no html do navbar {% endcomment %}
           
           <!-- FIM MODAL  -->
 
