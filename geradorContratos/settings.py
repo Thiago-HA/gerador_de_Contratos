@@ -24,8 +24,12 @@ SECRET_KEY = 'django-insecure-a$o0sy*_nx-dd#7^u(w045n)ze+$5*(rdnd7i-#c7j(s&&oh_y
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# ! DESCOMENTAR EM AMBIENTE DE PRODUÇÃO:
+# ! DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
+# ! DESCOMENTAR EM AMBIENTE DE PRODUÇÃO:
+# ! ALLOWED_HOSTS = ["lara1.pythonanywhere.com"]
 
 
 # Application definition
@@ -130,3 +134,11 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# default static files settings for PythonAnywhere.
+# see https://help.pythonanywhere.com/pages/DjangoStaticFiles for more info
+# ! DESCOMENTAR EM AMBIENTE DE PRODUÇÃO:
+# !MEDIA_ROOT = '/home/lara1/gerador_de_Contratos/media'
+# !MEDIA_URL = '/media/'
+# !STATIC_ROOT = '/home/lara1/gerador_de_Contratos/static'
+# !STATIC_URL = '/static/'
