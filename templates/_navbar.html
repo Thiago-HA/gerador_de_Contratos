@@ -36,7 +36,7 @@
           </li>
 
           <li class="nav-item">
-            <a type="button" class="nav-link Selecionado" data-bs-toggle="modal" data-bs-target="#ModalCreateContrato"><strong>Novo contrato</strong></a>
+            <a type="button" class="nav-link Selecionado" {% if usuario.apelido %} data-bs-toggle="modal" data-bs-target="#ModalCreateContrato" {% endif %}><strong>Novo contrato</strong></a>
           </li>
           
           <li class="nav-item ultimo-link ">
@@ -322,7 +322,23 @@
   // enviar formulario preenchido:
   form.submit();
 
-  }
+  };
+
+
+
+  function outro(){
+    input = document.getElementById("outra_festa")
+    select = document.getElementById("festa")
+
+    if (input.style.display == "none"){
+      input.style.display = "flex"
+      select.style.display = "none"
+    }else{
+      select.style.display = "flex"
+      input.style.display = "none"
+      input.value = ""
+    }
+  };
 
 
 </script>
