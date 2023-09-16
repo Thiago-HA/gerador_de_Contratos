@@ -95,10 +95,13 @@ def cadastro_contrato(request):
         if outra_festa != "" and outra_festa != None:
             festa = outra_festa
 
+        # Formatar o CPF
+        cpf_formatado = f"{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}"
+
         try: 
             contrato = Contrato(descricao = descricao, 
                                 nome_contratante = nome,
-                                cpf_contratante =  cpf,
+                                cpf_contratante =  cpf_formatado,
                                 rua_contratante = rua,
                                 numero_contratante = numero,
                                 cidade_contratante = cidade,
@@ -151,11 +154,21 @@ def editar_contrato(request, id):
         if descricao == dados_contrato.descricao and nome == dados_contrato.nome_contratante and cpf == dados_contrato.cpf_contratante and rua == dados_contrato.rua_contratante and numero == dados_contrato.numero_contratante and cidade == dados_contrato.cidade_contratante and estado == dados_contrato.estado_contratante and salao == dados_contrato.salao and festa == dados_contrato.evento and int(qtd_convidados) == dados_contrato.qtd_convidados and int(qtd_garcons) == dados_contrato.qtd_garcons and data_evento == str(dados_contrato.data_evento) and valor_aluguel == str(dados_contrato.valor) and valor_buffet == str(dados_contrato.valor_buffet) and data_pagar == str(dados_contrato.data_pagar) and data_contrato == str(dados_contrato.data_contrato) :
             return redirect("/abrir_contrato/" + str(id) )
 
+        if len(cpf) == 11:
+            # Formatar o CPF
+            cpf_formatado = f"{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}" #xxx.xxx.xxx-xx
+        elif len(cpf) == 14:
+            # Remover os caracteres não numéricos do CPF formatado
+            cpf = ''.join(filter(str.isdigit, cpf))
+            # Formatar o CPF
+            cpf_formatado = f"{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}" #xxx.xxx.xxx-xx
+        else:
+            return redirect("/abrir_contrato/" + str(id) + "?status=2")
         try: 
             contrato = Contrato(id = id,
                                 descricao = descricao, 
                                 nome_contratante = nome,
-                                cpf_contratante =  cpf,
+                                cpf_contratante =  cpf_formatado,
                                 rua_contratante = rua,
                                 numero_contratante = numero,
                                 cidade_contratante = cidade,
